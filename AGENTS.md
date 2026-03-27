@@ -28,9 +28,11 @@ These instructions apply to everything under `C:\study\ddokddok`.
 
 ## Repository Notes
 
-- This workspace is currently not a Git repository. Do not require Git history or commit-based workflows unless a `.git` directory is added later.
+- This workspace is now a Git repository. Use git-aware workflows when helpful, but do not assume a mature commit history exists yet.
 - `frontend` and `backend` both belong to the same project space. Keep prework repo-wide unless the user narrows the target area.
 - Keep the working language in Korean unless the user asks for English output.
+- Keep public-facing documentation such as `README.md` in Korean by default unless the user requests another language.
+- When the project meaningfully changes, update `README.md` with concrete improvements and current status.
 
 ## Practical Defaults
 

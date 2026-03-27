@@ -1,32 +1,56 @@
 # ddokddok
 
-`ddokddok` is a public monorepo for building a shared household finance app for couples.
+`ddokddok`은 부부가 함께 생활비를 기록하고 흐름을 파악할 수 있도록 만드는 공유 가계 관리 서비스입니다.
 
-## Current structure
+## 프로젝트 소개
 
-- `frontend/`: future client application
-- `backend/`: future server application
-- `docs/`: local product and planning artifacts
-- `.codex/`: repo-scoped Codex agents and config
-- `.agents/`: repo-scoped Codex skills
+이 저장소는 `frontend`와 `backend`를 함께 관리하는 공개 monorepo입니다.
 
-## Working approach
+현재는 제품 초기 기획과 하네스 구성을 먼저 다지고 있으며, 이후 구현이 진행될수록 설계 변화와 개선 내용을 README에 계속 누적합니다.
 
-This repository uses a local prework harness before major implementation work starts.
+## 디렉터리 구조
 
-The default flow is:
+- `frontend/`: 클라이언트 애플리케이션 영역
+- `backend/`: 서버 애플리케이션 영역
+- `docs/`: 기획, 설계, 계획 문서
+- `.codex/`: 이 저장소 전용 Codex 설정과 커스텀 에이전트
+- `.agents/`: 이 저장소 전용 Codex 스킬
 
-1. clarify requirements
-2. define design direction
-3. decide kickoff readiness
-4. create an implementation plan
+## 작업 방식
 
-Artifacts are stored under:
+이 저장소는 큰 구현에 들어가기 전에 사전 작업 하네스를 먼저 거칩니다.
+
+기본 흐름은 다음과 같습니다.
+
+1. 요구사항 정리
+2. 디자인 방향 정리
+3. 착수 가능 여부 판단
+4. 구현 계획 수립
+
+관련 산출물은 아래 위치에 저장합니다.
 
 - `docs/superpowers/specs/`
 - `docs/superpowers/plans/`
 - `docs/superpowers/templates/`
 
-## Status
+## 현재 상태
 
-This repository is currently in early planning and harness setup.
+- 공개 저장소 초기 구성 완료
+- 로컬 전용 Codex 사전 작업 하네스 구성 완료
+- `frontend`, `backend` 기본 구조 생성 완료
+- 생활비 관리 MVP 방향 정의 진행 예정
+
+## 앞으로의 방향
+
+- 부부 생활비 기록과 확인에 집중한 MVP 설계
+- 빠른 입력, 월별 흐름 확인, 함께 보는 구조를 우선 검토
+- 이후 필요 시 캘린더 공유 같은 확장 기능 검토
+
+## 업데이트 기록
+
+### 2026-03-27
+
+- 공개 GitHub 저장소 초기화
+- `AGENTS.md`, `.codex`, `.agents` 기반 로컬 하네스 연결
+- 사전 작업용 템플릿과 설계 문서 추가
+- README 한글 운영 기준 수립
