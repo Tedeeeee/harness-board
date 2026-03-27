@@ -1,0 +1,7 @@
+interface:
+  display_name: "ddokddok Prework Harness"
+  short_description: "Requirements, design direction, and kickoff readiness before implementation."
+  default_prompt: "Use the ddokddok prework harness for this request before implementation."
+
+policy:
+  allow_implicit_invocation: true
