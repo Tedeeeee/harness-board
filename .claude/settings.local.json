@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(git remote:*)",
+      "Bash(ls:*)",
+      "Bash(gh auth:*)",
+      "Bash(git:*)",
+      "Bash(npm --version)",
+      "Bash(npm install:*)",
+      "Bash(node src/server.js)",
+      "Bash(curl -s http://localhost:3000/api/health)",
+      "Bash(kill %1)",
+      "Bash(npx prisma:*)",
+      "Bash(curl -s http://localhost:3000/api/posts)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); console.log\\('totalCount:', d.totalCount, 'totalPages:', d.totalPages, 'first:', d.posts[0]?.title\\)\")",
+      "Bash(curl -s http://localhost:3000/api/posts/1)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); console.log\\('title:', d.title, 'author:', d.author, 'views:', d.views\\)\" echo \"\" echo \"=== POST create ===\" curl -s -X POST http://localhost:3000/api/posts -H \"Content-Type: application/json\" -d '{\"title\":\"테스트 글\",\"content\":\"테스트 내용\",\"author\":\"테스터\",\"password\":\"1234\"}' echo \"\" echo \"=== PUT wrong password ===\" curl -s -X PUT http://localhost:3000/api/posts/1 -H \"Content-Type: application/json\" -d '{\"title\":\"수정\",\"content\":\"수정내용\",\"password\":\"wrong\"}' echo \"\" echo \"=== DELETE ===\" curl -s -o /dev/null -w \"status: %{http_code}\" -X DELETE http://localhost:3000/api/posts/19 -H \"Content-Type: application/json\" -d '{\"password\":\"1234\"}' echo \"\" kill %1)",
+      "Bash(npx kill-port:*)",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill:*)",
+      "Bash(netstat -ano)",
+      "Bash(curl -s \"http://localhost:3000/api/posts?searchType=title&keyword=%ED%98%91%EC%97%85\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); console.log\\('count:', d.totalCount, 'title:', d.posts[0]?.title\\)\" echo \"\" echo \"=== PUT wrong pw ===\" curl -s -X PUT http://localhost:3000/api/posts/1 -H \"Content-Type: application/json\" -d '{\"title\":\"x\",\"content\":\"x\",\"password\":\"wrong\"}' echo \"\" kill %1)",
+      "Bash(npx vite:*)",
+      "Bash(powershell.exe -Command \"Compress-Archive -Path 'byulsoft-homepage\\\\*' -DestinationPath 'C:\\\\workspace\\\\harness-board\\\\byulsoft-homepage.zip' -Force\")",
+      "Bash(powershell.exe -Command \"Expand-Archive -Path 'C:\\\\workspace\\\\harness-board\\\\byulsoft-homepage.zip' -DestinationPath 'C:\\\\tmp\\\\verify-zip' -Force; Get-ChildItem -Recurse 'C:\\\\tmp\\\\verify-zip' | Select-Object FullName\")",
+      "Bash(echo \"REMOTE: $\\(git remote get-url origin 2>/dev/null\\)\")"
+    ]
+  }
+}
