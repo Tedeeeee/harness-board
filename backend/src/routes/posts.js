@@ -46,8 +46,8 @@ router.get('/', async (req, res) => {
 // GET /api/posts/:id — 상세 (조회수 +1)
 router.get('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return res.status(400).json({ error: '유효하지 않은 ID입니다.' });
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) return res.status(400).json({ error: '유효하지 않은 ID입니다.' });
 
     const post = await prisma.post.findFirst({
       where: { id, deletedAt: null },
@@ -74,13 +74,14 @@ router.post('/', async (req, res) => {
     if (!title || !title.trim()) errors.push('제목을 입력해주세요.');
     else if (title.trim().length > 100) errors.push('제목은 100자 이내로 입력해주세요.');
     if (!content || !content.trim()) errors.push('내용을 입력해주세요.');
+    else if (content.trim().length > 10000) errors.push('내용은 10,000자 이내로 입력해주세요.');
     if (!author || !author.trim()) errors.push('작성자명을 입력해주세요.');
     else if (author.trim().length > 20) errors.push('작성자명은 20자 이내로 입력해주세요.');
     if (!password || password.length < 4) errors.push('비밀번호는 4자리 이상 입력해주세요.');
 
     if (errors.length > 0) return res.status(400).json({ error: errors[0], errors });
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const post = await prisma.post.create({
       data: {
@@ -101,8 +102,8 @@ router.post('/', async (req, res) => {
 // PUT /api/posts/:id — 수정 (author 변경 불가)
 router.put('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return res.status(400).json({ error: '유효하지 않은 ID입니다.' });
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) return res.status(400).json({ error: '유효하지 않은 ID입니다.' });
 
     const { title, content, password } = req.body;
 
@@ -110,6 +111,7 @@ router.put('/:id', async (req, res) => {
     if (!title || !title.trim()) errors.push('제목을 입력해주세요.');
     else if (title.trim().length > 100) errors.push('제목은 100자 이내로 입력해주세요.');
     if (!content || !content.trim()) errors.push('내용을 입력해주세요.');
+    else if (content.trim().length > 10000) errors.push('내용은 10,000자 이내로 입력해주세요.');
     if (!password) errors.push('비밀번호를 입력해주세요.');
 
     if (errors.length > 0) return res.status(400).json({ error: errors[0], errors });
@@ -117,7 +119,7 @@ router.put('/:id', async (req, res) => {
     const post = await prisma.post.findFirst({ where: { id, deletedAt: null } });
     if (!post) return res.status(404).json({ error: '게시글을 찾을 수 없습니다.' });
 
-    if (!bcrypt.compareSync(password, post.password)) {
+    if (!(await bcrypt.compare(password, post.password))) {
       return res.status(401).json({ error: '비밀번호가 일치하지 않습니다.' });
     }
 
@@ -136,8 +138,8 @@ router.put('/:id', async (req, res) => {
 // DELETE /api/posts/:id — 삭제 (soft delete)
 router.delete('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return res.status(400).json({ error: '유효하지 않은 ID입니다.' });
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) return res.status(400).json({ error: '유효하지 않은 ID입니다.' });
 
     const { password } = req.body;
     if (!password) return res.status(400).json({ error: '비밀번호를 입력해주세요.' });
@@ -145,7 +147,7 @@ router.delete('/:id', async (req, res) => {
     const post = await prisma.post.findFirst({ where: { id, deletedAt: null } });
     if (!post) return res.status(404).json({ error: '게시글을 찾을 수 없습니다.' });
 
-    if (!bcrypt.compareSync(password, post.password)) {
+    if (!(await bcrypt.compare(password, post.password))) {
       return res.status(401).json({ error: '비밀번호가 일치하지 않습니다.' });
     }
 
